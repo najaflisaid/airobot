@@ -43,6 +43,11 @@ const Header = () => {
                 {l.label}
               </Link>
             ))}
+            {isAdmin && (
+              <Link to="/admin" className="text-sm font-extrabold text-[#1C1A17] eggi-yellow hard-border px-3 py-1.5 rounded-lg hover:-translate-y-0.5 transition-transform">
+                Admin
+              </Link>
+            )}
           </nav>
 
           <div className="flex items-center gap-2">
@@ -96,6 +101,11 @@ const Header = () => {
             {links.map((l) => (
               <Link key={l.label} to={l.to} onClick={() => setMenuOpen(false)} className="font-semibold">{l.label}</Link>
             ))}
+            {isAdmin && (
+              <Link to="/admin" onClick={() => setMenuOpen(false)} className="font-extrabold text-[#1C1A17] eggi-yellow hard-border px-3 py-2 rounded-lg text-center">
+                Admin Panel
+              </Link>
+            )}
             {!user && (
               <Link to="/login" onClick={() => setMenuOpen(false)} className="eggi-dark text-white font-bold px-4 py-2 rounded-xl hard-border text-center">Login / Register</Link>
             )}
