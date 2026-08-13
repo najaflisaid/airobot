@@ -1,4 +1,4 @@
-// Mock content data for EGGI clone (frontend-only)
+// Mock content data for NUVII clone (frontend-only)
 
 export const IMAGES = {
   heroDevice: "https://images.unsplash.com/photo-1686386084459-8d9d14400a4b",
@@ -19,9 +19,9 @@ export const NAV_LINKS = [
 ];
 
 export const HERO = {
-  badge: "AI PET PREORDER PREVIEW",
-  title: "EGGI",
-  subtitle: "Raise your first AI companion.",
+  badge: "NUVII ONE \u00b7 AI PET PREORDER",
+  title: "NUVII",
+  subtitle: "Your little AI friend.",
   description: "A tiny AI pet that reacts, dresses up, unlocks worlds, and grows with you.",
   primaryCta: "Pre-order for $49",
   secondaryCta: "See how it grows",
@@ -33,14 +33,14 @@ export const HERO = {
 };
 
 export const WHAT_IS = {
-  label: "WHAT IS EGGI",
+  label: "WHAT IS NUVII",
   title: "Not another chatbot. A tiny life you raise.",
-  note: "EGGI gets hungry, messy, clingy, moody, curious, and a little funnier every time you come back.",
+  note: "NUVII gets hungry, messy, clingy, moody, curious, and a little funnier every time you come back.",
   cards: [
     { tag: "No", title: "Not just a talking toy", text: "Conversation is only one layer. Care, routine, memory, and growth drive the relationship.", highlight: false },
     { tag: "No", title: "Not a story machine", text: "Stories, music, and drawings unlock as skills, not as the whole product.", highlight: false },
-    { tag: "No", title: "Not homework in disguise", text: "EGGI is built around cute reactions, outfits, tiny needs, and daily surprises.", highlight: false },
-    { tag: "Yes", title: "A companion that grows", text: "The more you care, the more EGGI feels like yours.", highlight: true },
+    { tag: "No", title: "Not homework in disguise", text: "NUVII is built around cute reactions, outfits, tiny needs, and daily surprises.", highlight: false },
+    { tag: "Yes", title: "A companion that grows", text: "The more you care, the more NUVII feels like yours.", highlight: true },
   ],
 };
 
@@ -58,7 +58,7 @@ export const DAILY = {
 
 export const COLLECTIBLE = {
   cards: [
-    { title: "Collectible looks", text: "Fox, sheep, bunny, and more styles that make each EGGI feel different.", color: "eggi-mint" },
+    { title: "Collectible looks", text: "Fox, sheep, bunny, and more styles that make each NUVII feel different.", color: "eggi-mint" },
     { title: "Desk-pet energy", text: "A tiny companion for your desk, bag, shelf, photos, and daily check-ins.", color: "eggi-yellow" },
     { title: "Rare little moments", text: "Expressions, sounds, skills, diary bits, and map surprises unlock over time.", color: "eggi-pink" },
   ],
@@ -67,7 +67,7 @@ export const COLLECTIBLE = {
 export const SKILLS = {
   label: "AI SKILLS AND WORLD",
   title: "AI skills unlock as the bond grows.",
-  note: "EGGI does not start fully unlocked. It becomes stranger, cuter, and more capable as your bond grows.",
+  note: "NUVII does not start fully unlocked. It becomes stranger, cuter, and more capable as your bond grows.",
   cards: [
     { tag: "AI", title: "Creative tools", text: "AI drawing, AI music, stories, and a daily diary." },
     { tag: "Day", title: "Daily helpers", text: "Weather, alarms, timers, and small routines." },
@@ -89,7 +89,7 @@ export const PREORDER = {
 export const TIMELINE = {
   label: "GROWTH TIMELINE",
   title: "It changes because you keep showing up.",
-  note: "EGGI starts clumsy and needy, then slowly becomes weirder, cuter, more personal, and more fun to show off.",
+  note: "NUVII starts clumsy and needy, then slowly becomes weirder, cuter, more personal, and more fun to show off.",
   steps: [
     { day: "Day 1", text: "Clumsy, hungry, and full of nonsense sounds." },
     { day: "Day 7", text: "Starts using tiny reactions and playful expressions." },
@@ -103,7 +103,7 @@ export const TIMELINE = {
 export const LOOP = {
   label: "EGG COINS AND UNLOCKS",
   title: "A tiny loop that keeps pulling you back.",
-  note: "Earn Egg Coins, pick a job, open the shop, grab a new look, and unlock more of EGGI's world.",
+  note: "Earn Egg Coins, pick a job, open the shop, grab a new look, and unlock more of NUVII's world.",
   overlay: { title: "Care, earn, unlock", text: "Every check-in can turn into coins, outfits, maps, or a new reaction." },
   steps: [
     { num: "1", title: "Check status", text: "Food, water, mood, health, coins, and level." },
@@ -119,7 +119,7 @@ export const FAQ = {
   title: "What you need to know before raising one.",
   note: "Keep it simple: what it is, how it grows, what unlocks, and what the first batch includes.",
   items: [
-    { q: "Is EGGI like Tamagotchi?", a: "Yes in spirit: a tiny pet you care for daily. EGGI adds AI reactions, voice memory, outfits, and worlds." },
+    { q: "Is NUVII like Tamagotchi?", a: "Yes in spirit: a tiny pet you care for daily. NUVII adds AI reactions, voice memory, outfits, and worlds." },
     { q: "What do I actually do with it?", a: "Feed it, clean it, comfort it, earn coins, dress it up, unlock skills, and explore new places." },
     { q: "Can I customize it?", a: "Yes. The host has one color and one version for this preorder. Lamb, fox, and rabbit outfits are separate add-ons at $9.90 each during preorder, or $15.90 standalone later." },
     { q: "What is in the first batch?", a: "The first batch includes eggi AI Pet at $49 preorder pricing, estimated to ship September 1, 2026. Preorder shipping is included for supported launch countries." },
@@ -130,7 +130,7 @@ export const FAQ = {
 export const FOOTER = {
   cta: {
     title: "Join the first-batch list.",
-    text: "Drop your email and EGGI will ping you when preorder details hatch.",
+    text: "Drop your email and NUVII will ping you when preorder details hatch.",
     placeholder: "you@example.com",
     button: "Notify me",
   },

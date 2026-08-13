@@ -1,56 +1,62 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "./components/ui/sonner";
-import { toast } from "sonner";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import { WhatIsEggi, DailyMoments, Collectible } from "./components/WhatAndDaily";
-import { Skills, Preorder } from "./components/SkillsAndPreorder";
-import { Timeline, Loop } from "./components/TimelineLoop";
-import { Faq, Footer } from "./components/FaqFooter";
+import { AuthProvider } from "./contexts/AuthContext";
+import { CartProvider } from "./contexts/CartContext";
+import MainLayout from "./components/layout/MainLayout";
+import AdminLayout from "./components/layout/AdminLayout";
+import { ProtectedRoute, AdminRoute } from "./components/RouteGuards";
+
+import Home from "./pages/Home";
+import Shop from "./pages/Shop";
+import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Orders from "./pages/Orders";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminProducts from "./pages/admin/Products";
+import AdminCategories from "./pages/admin/Categories";
+import AdminOrders from "./pages/admin/Orders";
+import AdminUsers from "./pages/admin/Users";
 
 function App() {
-  const [showBar, setShowBar] = useState(true);
-
-  const handlePreorder = () => {
-    toast.success("Added to your preorder cart!", {
-      description: "eggi AI Pet · $49 · Ships Sep 1, 2026",
-    });
-  };
-
-  const scrollToGrowth = () => {
-    const el = document.getElementById("growth");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <div className="App">
-      <Header onPreorder={handlePreorder} />
-      <Hero onPreorder={handlePreorder} onGrow={scrollToGrowth} />
-      <WhatIsEggi />
-      <DailyMoments />
-      <Collectible />
-      <Skills />
-      <Preorder onPreorder={handlePreorder} />
-      <Timeline />
-      <Loop />
-      <Faq />
-      <Footer />
+      <AuthProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <Routes>
+              {/* Auth (no layout) */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
-      {/* Floating pre-order bar */}
-      {showBar && (
-        <div className="fixed bottom-5 right-5 z-40">
-          <button
-            onClick={handlePreorder}
-            className="btn-brutal eggi-dark text-white font-bold px-5 py-3 rounded-xl hard-border"
-            style={{ boxShadow: "3px 3px 0 0 #FFD84D" }}
-          >
-            Pre-order for $49
-          </button>
-        </div>
-      )}
+              {/* Store */}
+              <Route element={<MainLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/product/:slug" element={<ProductDetail />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+                <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+              </Route>
 
-      <Toaster position="top-center" />
+              {/* Admin */}
+              <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="products" element={<AdminProducts />} />
+                <Route path="categories" element={<AdminCategories />} />
+                <Route path="orders" element={<AdminOrders />} />
+                <Route path="users" element={<AdminUsers />} />
+              </Route>
+            </Routes>
+            <Toaster position="top-center" />
+          </BrowserRouter>
+        </CartProvider>
+      </AuthProvider>
     </div>
   );
 }
