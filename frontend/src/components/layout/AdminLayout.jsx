@@ -1,6 +1,7 @@
 import React from "react";
-import { NavLink, Outlet, Link } from "react-router-dom";
-import { LayoutDashboard, Package, Tags, ShoppingCart, Users, ArrowLeft } from "lucide-react";
+import { NavLink, Outlet, Link, useNavigate } from "react-router-dom";
+import { LayoutDashboard, Package, Tags, ShoppingCart, Users, ArrowLeft, Pencil } from "lucide-react";
+import { useContent } from "../../contexts/ContentContext";
 
 const items = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
@@ -10,7 +11,11 @@ const items = [
   { to: "/admin/users", label: "Users", icon: Users },
 ];
 
-const AdminLayout = () => (
+const AdminLayout = () => {
+  const navigate = useNavigate();
+  const { setEditMode } = useContent();
+  const startEditing = () => { setEditMode(true); navigate("/"); };
+  return (
   <div className="min-h-screen eggi-dark text-white flex">
     <aside className="w-64 shrink-0 border-r-2 border-[#3a352d] p-5 hidden md:flex flex-col">
       <Link to="/" className="flex items-center gap-2 mb-8">
@@ -30,6 +35,9 @@ const AdminLayout = () => (
             <it.icon size={18} /> {it.label}
           </NavLink>
         ))}
+        <button onClick={startEditing} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm text-[#1C1A17] eggi-mint hard-border mt-2">
+          <Pencil size={18} /> Edit Home Content
+        </button>
       </nav>
       <Link to="/" className="flex items-center gap-2 text-sm font-bold text-[#a49d90] hover:text-white mt-4"><ArrowLeft size={16} /> Back to store</Link>
     </aside>
@@ -40,12 +48,14 @@ const AdminLayout = () => (
         {items.map((it) => (
           <NavLink key={it.to} to={it.to} end={it.end} className={({ isActive }) => `whitespace-nowrap px-3 py-2 rounded-lg font-bold text-xs ${isActive ? "eggi-yellow text-[#1C1A17]" : "bg-[#2a2620] text-[#d9d3c6]"}`}>{it.label}</NavLink>
         ))}
+        <button onClick={startEditing} className="whitespace-nowrap px-3 py-2 rounded-lg font-bold text-xs eggi-mint text-[#1C1A17]">Edit Content</button>
       </div>
       <div className="p-5 md:p-8">
         <Outlet />
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default AdminLayout;

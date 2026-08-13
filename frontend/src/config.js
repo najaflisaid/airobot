@@ -9,7 +9,8 @@ export const SITE = {
 };
 
 // Emails that get admin access. Change or add emails here.
-export const ADMIN_EMAILS = ["admin@nuvii.ai"];
+// (You can also promote any user to admin directly in Firestore by setting role: "admin")
+export const ADMIN_EMAILS = ["admin@nuvii.ai", "nuviiadmin@test.com"];
 
 export const isAdminEmail = (email) =>
   !!email && ADMIN_EMAILS.map((e) => e.toLowerCase()).includes(email.toLowerCase());

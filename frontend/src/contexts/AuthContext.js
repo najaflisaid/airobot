@@ -22,8 +22,8 @@ export const AuthProvider = ({ children }) => {
   const ensureUserDoc = async (fbUser, extra = {}) => {
     const ref = doc(db, "users", fbUser.uid);
     const snap = await getDoc(ref);
-    const role = isAdminEmail(fbUser.email) ? "admin" : "customer";
     if (!snap.exists()) {
+      const role = isAdminEmail(fbUser.email) ? "admin" : "customer";
       const data = {
         uid: fbUser.uid,
         email: fbUser.email,
@@ -35,10 +35,13 @@ export const AuthProvider = ({ children }) => {
       return data;
     }
     const data = snap.data();
-    // keep role in sync with admin list
-    if (data.role !== role) {
-      await setDoc(ref, { role }, { merge: true });
-      data.role = role;
+    // Upgrade to admin if email is whitelisted, but NEVER downgrade a
+    // role that was set manually in Firestore (e.g. admin promoted by hand).
+    if (isAdminEmail(fbUser.email) && data.role !== "admin") {
+      try {
+        await setDoc(ref, { role: "admin" }, { merge: true });
+      } catch (e) { /* ignore */ }
+      data.role = "admin";
     }
     return data;
   };

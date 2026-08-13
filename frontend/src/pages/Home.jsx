@@ -6,11 +6,14 @@ import { Skills, Preorder } from "../components/SkillsAndPreorder";
 import { Timeline, Loop } from "../components/TimelineLoop";
 import { Faq } from "../components/FaqFooter";
 import ProductCard from "../components/ProductCard";
+import EditableText from "../components/EditableText";
+import { useContent } from "../contexts/ContentContext";
 import { fetchProducts } from "../lib/data";
 import { seedIfEmpty } from "../lib/seed";
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
+  const { editMode } = useContent();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,11 +34,11 @@ const FeaturedProducts = () => {
       <div className="eggi-container">
         <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
           <div>
-            <p className="section-label text-coral mb-3">SHOP NUVII</p>
-            <h2 className="display-title text-4xl sm:text-5xl">Bring one home.</h2>
+            <EditableText as="p" path="featured.label" className="section-label text-coral mb-3 block" />
+            <EditableText as="h2" path="featured.title" className="display-title text-4xl sm:text-5xl block" />
           </div>
-          <button onClick={() => navigate("/shop")} className="btn-brutal bg-white font-bold px-6 py-3 rounded-xl hard-border" style={{ boxShadow: "3px 3px 0 0 #B4ECD5" }}>
-            View all products
+          <button onClick={() => { if (!editMode) navigate("/shop"); }} className="btn-brutal bg-white font-bold px-6 py-3 rounded-xl hard-border" style={{ boxShadow: "3px 3px 0 0 #B4ECD5" }}>
+            <EditableText as="span" path="featured.cta" />
           </button>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

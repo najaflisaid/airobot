@@ -145,3 +145,24 @@ code {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-14px); }
 }
+
+/* Inline live-editor styles */
+.editable-text {
+  outline: 2px dashed transparent;
+  outline-offset: 3px;
+  border-radius: 4px;
+  cursor: text;
+  transition: outline-color 0.15s ease, background-color 0.15s ease;
+}
+.editable-text:hover {
+  outline-color: #F76D5E;
+  background-color: rgba(255, 216, 77, 0.25);
+}
+.editable-text:focus {
+  outline-color: #1C1A17;
+  background-color: rgba(255, 216, 77, 0.35);
+}
+.editable-text:empty::before {
+  content: attr(data-placeholder);
+  color: #a29a8c;
+}

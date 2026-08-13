@@ -2,25 +2,29 @@ import React, { useState } from "react";
 import { FAQ, FOOTER } from "../mock";
 import useInView from "../hooks/useInView";
 import { toast } from "sonner";
+import { useContent } from "../contexts/ContentContext";
+import EditableText from "./EditableText";
 
 export const Faq = () => {
   const [ref, inView] = useInView();
+  const { content } = useContent();
+  const items = content.faq.items;
   return (
     <section id="faq" className="eggi-cream py-20 md:py-28">
       <div className="eggi-container">
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-end mb-12">
           <div>
-            <p className="section-label mb-4 text-coral">{FAQ.label}</p>
-            <h2 className="display-title text-5xl sm:text-6xl">{FAQ.title}</h2>
+            <EditableText as="p" path="faq.label" className="section-label mb-4 text-coral block" />
+            <EditableText as="h2" path="faq.title" className="display-title text-5xl sm:text-6xl block" />
           </div>
-          <p className="text-lg font-semibold text-[#5a534a] max-w-md lg:pb-2">{FAQ.note}</p>
+          <EditableText as="p" path="faq.note" className="text-lg font-semibold text-[#5a534a] max-w-md lg:pb-2 block" />
         </div>
 
         <div ref={ref} className={`grid md:grid-cols-2 gap-5 fade-up ${inView ? "in-view" : ""}`}>
-          {FAQ.items.map((item) => (
-            <div key={item.q} className="card-brutal bg-[#FCF7E8] hard-border rounded-2xl p-6 shadow-brutal-sm">
-              <h3 className="text-xl font-extrabold mb-2">{item.q}</h3>
-              <p className="text-sm font-medium text-[#5a534a] leading-relaxed">{item.a}</p>
+          {items.map((item, i) => (
+            <div key={i} className="card-brutal bg-[#FCF7E8] hard-border rounded-2xl p-6 shadow-brutal-sm">
+              <EditableText as="h3" path={`faq.items.${i}.q`} className="text-xl font-extrabold mb-2 block" />
+              <EditableText as="p" path={`faq.items.${i}.a`} className="text-sm font-medium text-[#5a534a] leading-relaxed block" />
             </div>
           ))}
         </div>

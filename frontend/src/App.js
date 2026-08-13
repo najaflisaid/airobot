@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "./components/ui/sonner";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
+import { ContentProvider } from "./contexts/ContentContext";
 import MainLayout from "./components/layout/MainLayout";
 import AdminLayout from "./components/layout/AdminLayout";
 import { ProtectedRoute, AdminRoute } from "./components/RouteGuards";
@@ -28,6 +29,7 @@ function App() {
     <div className="App">
       <AuthProvider>
         <CartProvider>
+          <ContentProvider>
           <BrowserRouter>
             <Routes>
               {/* Auth (no layout) */}
@@ -55,6 +57,7 @@ function App() {
             </Routes>
             <Toaster position="top-center" />
           </BrowserRouter>
+          </ContentProvider>
         </CartProvider>
       </AuthProvider>
     </div>
