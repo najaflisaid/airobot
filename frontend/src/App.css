@@ -1,0 +1,25 @@
+.App {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Utility container */
+.eggi-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.section-label {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.display-title {
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}

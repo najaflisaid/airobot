@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    margin: 0;
+    font-family: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #FCF7E8;
+    color: #1C1A17;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+@layer base {
+  :root {
+        --background: 44 65% 95%;
+        --foreground: 30 12% 10%;
+        --card: 0 0% 100%;
+        --card-foreground: 30 12% 10%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 30 12% 10%;
+        --primary: 30 12% 10%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 44 65% 92%;
+        --secondary-foreground: 30 12% 10%;
+        --muted: 44 40% 90%;
+        --muted-foreground: 30 8% 40%;
+        --accent: 46 100% 65%;
+        --accent-foreground: 30 12% 10%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 30 12% 10%;
+        --input: 30 12% 85%;
+        --ring: 30 12% 10%;
+        --radius: 0.9rem;
+    }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    }
+  body {
+    @apply text-foreground;
+    }
+}
+
+/* EGGI theme helpers */
+.eggi-cream { background-color: #FCF7E8; }
+.eggi-dark { background-color: #1C1A17; }
+.eggi-yellow { background-color: #FFD84D; }
+.eggi-mint { background-color: #B4ECD5; }
+.eggi-pink { background-color: #FBD0CF; }
+.eggi-blue { background-color: #B9E0F5; }
+.eggi-pastel-yellow { background-color: #FBE9A0; }
+
+.text-coral { color: #F76D5E; }
+.text-yellow-eggi { color: #FFD84D; }
+
+/* Hard neo-brutalist border */
+.hard-border { border: 2px solid #1C1A17; }
+
+/* Offset "sticker" shadow with yellow + coral layered feel */
+.shadow-brutal {
+  box-shadow: 4px 4px 0 0 #1C1A17;
+}
+.shadow-brutal-yellow {
+  box-shadow: 3px 3px 0 0 #FFD84D, 6px 6px 0 0 #F76D5E;
+}
+.shadow-brutal-sm {
+  box-shadow: 3px 3px 0 0 #1C1A17;
+}
+
+.btn-brutal {
+  position: relative;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.btn-brutal:hover {
+  transform: translate(-1px, -1px);
+}
+.btn-brutal:active {
+  transform: translate(2px, 2px);
+}
+
+.card-brutal {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card-brutal:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 0 #1C1A17;
+}
+
+/* Blinking cursor for hero title */
+.cursor-blink {
+  display: inline-block;
+  width: 6px;
+  background-color: #1C1A17;
+  margin-left: 6px;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Colorful stripe divider */
+.stripe-divider {
+  height: 46px;
+  background: repeating-linear-gradient(
+    90deg,
+    #F76D5E 0px, #F76D5E 28px,
+    #FFD84D 28px, #FFD84D 56px,
+    #B4ECD5 56px, #B4ECD5 84px,
+    #B9E0F5 84px, #B9E0F5 112px
+  );
+  border-top: 2px solid #1C1A17;
+  border-bottom: 2px solid #1C1A17;
+}
+
+/* entrance animation */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+::selection {
+  background: #FFD84D;
+  color: #1C1A17;
+}
+
+.float-anim {
+  animation: floaty 5s ease-in-out infinite;
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
