@@ -3,21 +3,38 @@ import { Link, useNavigate } from "react-router-dom";
 import { ShoppingBag, User, Menu, X, LogOut, Package, LayoutDashboard } from "lucide-react";
 import { useCart } from "../../contexts/CartContext";
 import { useAuth } from "../../contexts/AuthContext";
+import { useLanguage } from "../../contexts/LanguageContext";
+import { LANGS } from "../../lib/i18n";
 import { SITE } from "../../config";
 
 const Header = () => {
   const { count } = useCart();
   const { user, profile, isAdmin, logout } = useAuth();
+  const { lang, setLang, t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const [acctOpen, setAcctOpen] = useState(false);
   const navigate = useNavigate();
 
   const links = [
-    { label: "Home", to: "/" },
-    { label: "Shop", to: "/shop" },
-    { label: "About", to: "/#care" },
-    { label: "FAQ", to: "/#faq" },
+    { label: t("home"), to: "/" },
+    { label: t("shop"), to: "/shop" },
+    { label: t("about"), to: "/#care" },
+    { label: t("faq"), to: "/#faq" },
   ];
+
+  const LangSwitcher = ({ className = "" }) => (
+    <div className={`flex items-center bg-white hard-border rounded-lg overflow-hidden ${className}`}>
+      {LANGS.map((l) => (
+        <button
+          key={l.code}
+          onClick={() => setLang(l.code)}
+          className={`px-2 py-1 text-xs font-extrabold transition-colors ${lang === l.code ? "eggi-yellow" : "hover:bg-[#FCF7E8]"}`}
+        >
+          {l.label}
+        </button>
+      ))}
+    </div>
+  );
 
   const handleLogout = async () => {
     await logout();
@@ -45,13 +62,14 @@ const Header = () => {
             ))}
             {isAdmin && (
               <Link to="/admin" className="text-sm font-extrabold text-[#1C1A17] eggi-yellow hard-border px-3 py-1.5 rounded-lg hover:-translate-y-0.5 transition-transform">
-                Admin
+                {t("admin")}
               </Link>
             )}
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link to="/cart" className="btn-brutal relative w-9 h-9 rounded-full eggi-yellow hard-border flex items-center justify-center" aria-label="Cart">
+            <LangSwitcher className="hidden sm:flex" />
+            <Link to="/cart" className="btn-brutal relative w-9 h-9 rounded-full eggi-yellow hard-border flex items-center justify-center" aria-label={t("cart")}>
               <ShoppingBag size={16} />
               {count > 0 && (
                 <span className="absolute -top-2 -right-2 bg-[#F76D5E] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center hard-border">
@@ -72,19 +90,19 @@ const Header = () => {
               {user && acctOpen && (
                 <div className="absolute right-0 mt-2 w-52 bg-white hard-border rounded-xl p-2" style={{ boxShadow: "3px 3px 0 0 #1C1A17" }}>
                   <div className="px-3 py-2 border-b-2 border-[#1C1A17] mb-1">
-                    <p className="text-xs text-[#8a8377] font-semibold">Signed in as</p>
+                    <p className="text-xs text-[#8a8377] font-semibold">{t("signed_in_as")}</p>
                     <p className="text-sm font-bold truncate">{profile?.name || user.email}</p>
                   </div>
                   <Link to="/orders" onClick={() => setAcctOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold hover:bg-[#FCF7E8]">
-                    <Package size={15} /> My Orders
+                    <Package size={15} /> {t("my_orders")}
                   </Link>
                   {isAdmin && (
                     <Link to="/admin" onClick={() => setAcctOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold hover:bg-[#FCF7E8]">
-                      <LayoutDashboard size={15} /> Admin Panel
+                      <LayoutDashboard size={15} /> {t("admin")}
                     </Link>
                   )}
                   <button onClick={handleLogout} className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-[#d64545] hover:bg-[#FBD0CF]">
-                    <LogOut size={15} /> Log out
+                    <LogOut size={15} /> {t("logout")}
                   </button>
                 </div>
               )}
@@ -103,12 +121,13 @@ const Header = () => {
             ))}
             {isAdmin && (
               <Link to="/admin" onClick={() => setMenuOpen(false)} className="font-extrabold text-[#1C1A17] eggi-yellow hard-border px-3 py-2 rounded-lg text-center">
-                Admin Panel
+                {t("admin")}
               </Link>
             )}
             {!user && (
-              <Link to="/login" onClick={() => setMenuOpen(false)} className="eggi-dark text-white font-bold px-4 py-2 rounded-xl hard-border text-center">Login / Register</Link>
+              <Link to="/login" onClick={() => setMenuOpen(false)} className="eggi-dark text-white font-bold px-4 py-2 rounded-xl hard-border text-center">{t("login_register")}</Link>
             )}
+            <LangSwitcher className="self-start" />
           </div>
         )}
       </div>

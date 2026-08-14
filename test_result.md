@@ -198,6 +198,21 @@ frontend:
         -agent: "main"
         -comment: "Blocked by EXTERNAL cause: Firestore security rules deny writes to 'orders' (permission-denied). User must publish rules in Firebase console (rules provided in /app/frontend/firestore.rules). Do NOT retest order placement until user confirms rules are published."
 
+  - task: "Multi-language support (AZ/RU/EN) with language switcher and per-language content editing"
+    implemented: true
+    working: true
+    file: "src/contexts/LanguageContext.js, src/lib/i18n.js, src/lib/contentI18n.js, src/contexts/ContentContext.js, src/components/layout/Header.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "Implemented multi-language feature supporting Azerbaijani (AZ), Russian (RU), and English (EN). Language switcher in header (three buttons AZ | RU | EN). UI strings translated via i18n.js, marketing content via contentI18n.js. Language stored in localStorage (key: nuvii_lang). Per-language content stored in Firestore (content/home_az, content/home_ru, content/home_en). Admin can edit content independently per language."
+        -working: true
+        -agent: "testing"
+        -comment: "TESTED & VERIFIED ✅ - All 7 test steps PASSED: (1) EN language: Hero subtitle 'Your little AI friend.' and nav 'Home / Shop / About / FAQ' ✅; (2) AZ language: Hero subtitle 'Sənin balaca AI dostun.' and nav 'Ana səhifə / Mağaza / Haqqında / FAQ', section titles include 'NUVII NƏDİR' ✅; (3) RU language: Hero subtitle 'Твой маленький AI-друг.' and nav 'Главная / Магазин / О нас / Вопросы' ✅; (4) Shop page: RU title 'Всё для твоего NUVII.', filter 'Все', sort options in Russian. After switching to AZ, title changed to 'NUVII üçün hər şey.' ✅; (5) Language persistence: After full page reload, language stayed 'az' and nav remained in Azerbaijani ✅; (6) Cart and Login pages: Cart title 'Səbətin boşdur.', Login title 'Xoş gəldin.', button 'Daxil ol' - all in Azerbaijani ✅; (7) Per-language independent editing: Admin logged in, switched to EN, edited hero subtitle to 'EN EDIT TEST', saved successfully (toast 'Content saved' appeared), EN shows edited text, but AZ still shows 'Sənin balaca AI dostun.' - proving content is stored independently per language ✅. Minor: Firestore WebChannel warning in console (non-critical, doesn't affect functionality)."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
@@ -292,3 +307,53 @@ agent_communication:
       RESULT: All functionality working perfectly. The admin live content editor feature is production-ready.
       
       Minor Note: Firestore WebChannel warning in console logs (non-critical, doesn't affect functionality).
+    -agent: "testing"
+    -message: |
+      ✅ MULTI-LANGUAGE FEATURE TESTING COMPLETE: ✅ ALL TESTS PASSED
+      
+      Tested the NEW multi-language feature (AZ/RU/EN) with language switcher and per-language content editing:
+      
+      STEP 1 (EN Language): ✅ PASSED
+      - Default language in localStorage: 'en'
+      - Hero subtitle: 'Your little AI friend.'
+      - Navigation: 'Home / Shop / About / FAQ'
+      
+      STEP 2 (AZ Language): ✅ PASSED
+      - Hero subtitle: 'Sənin balaca AI dostun.'
+      - Navigation: 'Ana səhifə / Mağaza / Haqqında / FAQ'
+      - Section titles in Azerbaijani: 'NUVII NƏDİR', 'GÜNDƏLİK PET ANLARI', 'AI BACARIQLARI VƏ DÜNYA'
+      
+      STEP 3 (RU Language): ✅ PASSED
+      - Hero subtitle: 'Твой маленький AI-друг.'
+      - Navigation: 'Главная / Магазин / О нас / Вопросы'
+      
+      STEP 4 (Shop Page Translation): ✅ PASSED
+      - RU shop title: 'Всё для твоего NUVII.'
+      - RU filter button: 'Все'
+      - RU sort options: 'Рекомендуемые', 'Цена: по возрастанию', 'Цена: по убыванию'
+      - After switching to AZ, shop title changed to: 'NUVII üçün hər şey.'
+      
+      STEP 5 (Language Persistence): ✅ PASSED
+      - Language before reload: 'az'
+      - After full page reload, language persisted: 'az'
+      - Navigation remained in Azerbaijani after reload
+      
+      STEP 6 (Cart & Login Translation): ✅ PASSED
+      - Cart empty title (AZ): 'Səbətin boşdur.'
+      - Login title (AZ): 'Xoş gəldin.'
+      - Login button (AZ): 'Daxil ol'
+      
+      STEP 7 (Per-Language Independent Editing): ✅ PASSED
+      - Admin logged in successfully
+      - Switched to EN language
+      - Clicked "Edit Home Content" in /admin
+      - Edit mode banner showed: 'LIVE EDITOR (EN)'
+      - Edited hero subtitle to: 'EN EDIT TEST'
+      - Save successful - toast 'Content saved' appeared
+      - EN content shows edited text: 'EN EDIT TEST'
+      - Switched to AZ - content unchanged: 'Sənin balaca AI dostun.'
+      - PROOF: Content is stored independently per language in Firestore (content/home_en, content/home_az, content/home_ru)
+      
+      RESULT: Multi-language feature is fully functional and production-ready. All 7 test steps passed.
+      
+      Minor Note: Firestore WebChannel warning in console (non-critical, doesn't affect functionality).

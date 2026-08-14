@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "../contexts/CartContext";
+import { useLanguage } from "../contexts/LanguageContext";
 import { toast } from "sonner";
 import { SITE } from "../config";
 
 const ProductCard = ({ product }) => {
   const { addItem } = useCart();
+  const { t } = useLanguage();
   const img = (product.images && product.images[0]) || "";
   const hasDiscount = product.oldPrice && product.oldPrice > product.price;
 
@@ -21,7 +23,7 @@ const ProductCard = ({ product }) => {
       <div className="relative h-52 overflow-hidden border-b-2 border-[#1C1A17] bg-[#f3eeda]">
         {img ? <img src={img} alt={product.name} className="w-full h-full object-cover" /> : null}
         {hasDiscount && (
-          <span className="absolute top-3 left-3 bg-[#F76D5E] text-white text-xs font-extrabold px-2.5 py-1 rounded-lg hard-border">SALE</span>
+          <span className="absolute top-3 left-3 bg-[#F76D5E] text-white text-xs font-extrabold px-2.5 py-1 rounded-lg hard-border">{t("sale")}</span>
         )}
       </div>
       <div className="p-5 flex flex-col flex-1">

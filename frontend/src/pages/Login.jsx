@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useLanguage } from "../contexts/LanguageContext";
 import { toast } from "sonner";
 
 const mapError = (code) => {
@@ -23,6 +24,7 @@ const GoogleBtn = ({ onClick }) => (
 
 const Login = () => {
   const { login, loginWithGoogle } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,27 +61,27 @@ const Login = () => {
           <span className="eggi-yellow hard-border w-9 h-9 rounded-lg flex items-center justify-center font-extrabold text-lg">N</span>
           <span className="font-extrabold text-xl">NUVII</span>
         </div>
-        <h1 className="display-title text-3xl mb-1">Welcome back.</h1>
-        <p className="text-[#7a7266] font-medium mb-6">Log in to raise your NUVII.</p>
+        <h1 className="display-title text-3xl mb-1">{t("welcome_back")}</h1>
+        <p className="text-[#7a7266] font-medium mb-6">{t("login_sub")}</p>
         <form onSubmit={submit} className="space-y-4">
           <div>
-            <label className="text-sm font-bold">Email</label>
+            <label className="text-sm font-bold">{t("email")}</label>
             <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full mt-1 px-4 py-3 rounded-xl hard-border outline-none font-medium" placeholder="you@example.com" />
           </div>
           <div>
-            <label className="text-sm font-bold">Password</label>
-            <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full mt-1 px-4 py-3 rounded-xl hard-border outline-none font-medium" placeholder="\u2022\u2022\u2022\u2022\u2022\u2022" />
+            <label className="text-sm font-bold">{t("password")}</label>
+            <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full mt-1 px-4 py-3 rounded-xl hard-border outline-none font-medium" placeholder="••••••" />
           </div>
           <button disabled={busy} type="submit" className="btn-brutal w-full eggi-dark text-white font-bold px-4 py-3 rounded-xl hard-border" style={{ boxShadow: "3px 3px 0 0 #FFD84D" }}>
-            {busy ? "Logging in..." : "Log in"}
+            {busy ? t("logging_in") : t("login_btn")}
           </button>
         </form>
         <div className="flex items-center gap-3 my-5">
-          <div className="h-0.5 flex-1 bg-[#e5dfce]" /><span className="text-xs font-bold text-[#a29a8c]">OR</span><div className="h-0.5 flex-1 bg-[#e5dfce]" />
+          <div className="h-0.5 flex-1 bg-[#e5dfce]" /><span className="text-xs font-bold text-[#a29a8c]">{t("or")}</span><div className="h-0.5 flex-1 bg-[#e5dfce]" />
         </div>
         <GoogleBtn onClick={google} />
         <p className="text-sm font-medium text-center mt-6">
-          No account? <Link to="/register" className="font-bold underline">Create one</Link>
+          {t("no_account")} <Link to="/register" className="font-bold underline">{t("create_one")}</Link>
         </p>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { Minus, Plus, ShoppingCart, ArrowLeft, Check } from "lucide-react";
 import { fetchProducts } from "../lib/data";
 import { useCart } from "../contexts/CartContext";
+import { useLanguage } from "../contexts/LanguageContext";
 import { toast } from "sonner";
 import { SITE } from "../config";
 import ProductCard from "../components/ProductCard";
@@ -11,6 +12,7 @@ const ProductDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const { addItem } = useCart();
+  const { t } = useLanguage();
   const [all, setAll] = useState([]);
   const [product, setProduct] = useState(null);
   const [qty, setQty] = useState(1);
@@ -54,7 +56,7 @@ const ProductDetail = () => {
     <div className="eggi-cream min-h-screen pt-28 md:pt-32 pb-20">
       <div className="eggi-container">
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 font-bold mb-6 hover:text-[#F76D5E]">
-          <ArrowLeft size={18} /> Back
+          <ArrowLeft size={18} /> {t("back")}
         </button>
         <div className="grid lg:grid-cols-2 gap-10">
           {/* Gallery */}
@@ -90,15 +92,15 @@ const ProductDetail = () => {
                 <span className="px-4 font-bold">{qty}</span>
                 <button onClick={() => setQty((q) => q + 1)} className="px-3 py-3"><Plus size={16} /></button>
               </div>
-              <span className="text-sm font-semibold text-[#2f8f5b] flex items-center gap-1"><Check size={16} /> In stock</span>
+              <span className="text-sm font-semibold text-[#2f8f5b] flex items-center gap-1"><Check size={16} /> {t("in_stock")}</span>
             </div>
 
             <div className="flex flex-wrap gap-4">
               <button onClick={add} className="btn-brutal bg-white font-bold px-6 py-3.5 rounded-xl hard-border flex items-center gap-2" style={{ boxShadow: "3px 3px 0 0 #B4ECD5" }}>
-                <ShoppingCart size={18} /> Add to cart
+                <ShoppingCart size={18} /> {t("add_to_cart")}
               </button>
               <button onClick={buyNow} className="btn-brutal eggi-dark text-white font-bold px-6 py-3.5 rounded-xl hard-border" style={{ boxShadow: "3px 3px 0 0 #FFD84D" }}>
-                Buy now
+                {t("buy_now")}
               </button>
             </div>
           </div>
@@ -106,7 +108,7 @@ const ProductDetail = () => {
 
         {related.length > 0 && (
           <div className="mt-20">
-            <h2 className="display-title text-3xl mb-8">You might also like</h2>
+            <h2 className="display-title text-3xl mb-8">{t("you_may_like")}</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {related.map((p) => <ProductCard key={p.id} product={p} />)}
             </div>

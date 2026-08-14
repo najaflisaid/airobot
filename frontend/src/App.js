@@ -5,6 +5,7 @@ import { Toaster } from "./components/ui/sonner";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { ContentProvider } from "./contexts/ContentContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
 import MainLayout from "./components/layout/MainLayout";
 import AdminLayout from "./components/layout/AdminLayout";
 import { ProtectedRoute, AdminRoute } from "./components/RouteGuards";
@@ -28,6 +29,7 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
+        <LanguageProvider>
         <CartProvider>
           <ContentProvider>
           <BrowserRouter>
@@ -59,6 +61,7 @@ function App() {
           </BrowserRouter>
           </ContentProvider>
         </CartProvider>
+        </LanguageProvider>
       </AuthProvider>
     </div>
   );

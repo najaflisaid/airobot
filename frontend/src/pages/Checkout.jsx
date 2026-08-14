@@ -6,10 +6,12 @@ import { useAuth } from "../contexts/AuthContext";
 import { createOrder } from "../lib/orders";
 import { toast } from "sonner";
 import { SITE } from "../config";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Checkout = () => {
   const { items, subtotal, clearCart, count } = useCart();
   const { user, profile } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
   const [form, setForm] = useState({
@@ -71,29 +73,29 @@ const Checkout = () => {
   return (
     <div className="eggi-cream min-h-screen pt-28 md:pt-32 pb-20">
       <div className="eggi-container">
-        <h1 className="display-title text-5xl mb-2">Checkout</h1>
-        <p className="text-[#7a7266] font-medium mb-8 flex items-center gap-2"><Lock size={15} /> Demo mode \u2013 no real payment is charged.</p>
+        <h1 className="display-title text-5xl mb-2">{t("checkout_title")}</h1>
+        <p className="text-[#7a7266] font-medium mb-8 flex items-center gap-2"><Lock size={15} /> {t("demo_note")}</p>
         <form onSubmit={submit} className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-white hard-border rounded-2xl p-6 shadow-brutal-sm">
-              <h2 className="font-extrabold text-xl mb-4">Shipping details</h2>
+              <h2 className="font-extrabold text-xl mb-4">{t("shipping_details")}</h2>
               <div className="grid sm:grid-cols-2 gap-4">
-                <Field label="Full name" value={form.name} onChange={set("name")} required />
-                <Field label="Phone" value={form.phone} onChange={set("phone")} required />
-                <div className="sm:col-span-2"><Field label="Address" value={form.address} onChange={set("address")} required /></div>
-                <Field label="City" value={form.city} onChange={set("city")} required />
-                <Field label="Country" value={form.country} onChange={set("country")} required />
+                <Field label={t("full_name")} value={form.name} onChange={set("name")} required />
+                <Field label={t("phone")} value={form.phone} onChange={set("phone")} required />
+                <div className="sm:col-span-2"><Field label={t("address")} value={form.address} onChange={set("address")} required /></div>
+                <Field label={t("city")} value={form.city} onChange={set("city")} required />
+                <Field label={t("country")} value={form.country} onChange={set("country")} required />
               </div>
             </div>
             <div className="bg-white hard-border rounded-2xl p-6 shadow-brutal-sm">
-              <h2 className="font-extrabold text-xl mb-4 flex items-center gap-2"><CreditCard size={20} /> Payment (Demo)</h2>
-              <Field label="Card number" value={form.card} onChange={set("card")} placeholder="4242 4242 4242 4242" />
-              <p className="text-xs text-[#a29a8c] font-semibold mt-2">This is a mock checkout. Any value works and no charge is made.</p>
+              <h2 className="font-extrabold text-xl mb-4 flex items-center gap-2"><CreditCard size={20} /> {t("payment_demo")}</h2>
+              <Field label={t("card_number")} value={form.card} onChange={set("card")} placeholder="4242 4242 4242 4242" />
+              <p className="text-xs text-[#a29a8c] font-semibold mt-2">{t("card_hint")}</p>
             </div>
           </div>
 
           <div className="bg-white hard-border rounded-2xl p-6 h-fit" style={{ boxShadow: "6px 6px 0 0 #1C1A17" }}>
-            <h2 className="font-extrabold text-xl mb-4">Your order</h2>
+            <h2 className="font-extrabold text-xl mb-4">{t("your_order")}</h2>
             <div className="space-y-3 mb-4 max-h-64 overflow-auto">
               {items.map((i) => (
                 <div key={i.id} className="flex items-center gap-3">
@@ -104,10 +106,10 @@ const Checkout = () => {
               ))}
             </div>
             <div className="border-t-2 border-[#1C1A17] pt-4 flex justify-between font-extrabold text-lg">
-              <span>Total</span><span>{SITE.currency}{total.toFixed(2)}</span>
+              <span>{t("total")}</span><span>{SITE.currency}{total.toFixed(2)}</span>
             </div>
             <button disabled={busy} type="submit" className="btn-brutal w-full mt-6 eggi-dark text-white font-bold px-6 py-3.5 rounded-xl hard-border" style={{ boxShadow: "3px 3px 0 0 #FFD84D" }}>
-              {busy ? "Processing..." : `Pay ${SITE.currency}${total.toFixed(2)}`}
+              {busy ? t("processing") : `${t("pay")} ${SITE.currency}${total.toFixed(2)}`}
             </button>
           </div>
         </form>
